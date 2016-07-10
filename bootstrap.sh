@@ -9,31 +9,31 @@ if [ "$OS" == "Darwin" ]; then
     fi
 
     echo "# Updating brew and pouring some packages..."
-    #brew update
-    #brew upgrade
-    #brew install python --upgrade
-    #brew install python3 --upgrade
-    #brew install ruby --upgrade
-    #brew install perl --upgrade
-    #brew install git --upgrade
-    #brew install fish --upgrade
-    #brew install httpie --upgrade
-    #brew install vim --with-python --with-ruby --with-perl --upgrade
-    #brew install macvim --env-std --with-override-system-vim --upgrade
-    #brew link --overwrite macvim
-    #brew cleanup
+    brew update
+    brew upgrade
+    brew install python --upgrade
+    brew install python3 --upgrade
+    brew install ruby --upgrade
+    brew install perl --upgrade
+    brew install git --upgrade
+    brew install fish --upgrade
+    brew install httpie --upgrade
+    brew install vim --with-python --with-ruby --with-perl --upgrade
+    brew install macvim --env-std --with-override-system-vim --upgrade
+    brew link --overwrite macvim
+    brew cleanup
 
-    #echo "# Allow use of fish as shell"
-    #if ! grep -q '/usr/local/bin/fish' /etc/shells; then
-    #    echo '/usr/local/bin/fish' >> /etc/shells
-    #fi
+    echo "# Allow use of fish as shell"
+    if ! grep -q '/usr/local/bin/fish' /etc/shells; then
+        echo '/usr/local/bin/fish' >> /etc/shells
+    fi
 
-    #echo "# Installing/upgrading python packages..."
-    #pip install pip --upgrade
-    #pip install powerline-status --upgrade
+    echo "# Installing/upgrading python packages..."
+    pip install pip --upgrade
+    pip install powerline-status --upgrade
 
-    #echo "# Install powerline fonts..."
-    #sh ~/mydots/powerline_fonts/install.sh
+    echo "# Install powerline fonts..."
+    sh ~/mydots/powerline_fonts/install.sh
 
     echo "# Create symlinks for .vim, .vimrc and .config"
     for i in .vim .vimrc .config; do
