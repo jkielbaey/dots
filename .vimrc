@@ -7,8 +7,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Powerline/powerline', { 'rtp': 'powerline/bindings/vim' }
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'Powerline/powerline', { 'rtp': 'powerline/bindings/vim' }
 Plugin 'godlygeek/tabular'
 Plugin 'rodjek/vim-puppet'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -24,8 +24,6 @@ Plugin 'vim-perl/vim-perl'
 
 call vundle#end() 
 
-" Activate powerline
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
 set laststatus=2
 
 " Enable syntax highlighting
@@ -90,7 +88,7 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 " Returns true if paste mode is enabled
 function! HasPaste()
