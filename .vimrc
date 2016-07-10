@@ -70,6 +70,36 @@ set tm=500
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+      return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 
