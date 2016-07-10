@@ -5,3 +5,6 @@
 
 # Ignore fishd auto generated config file.
 **/fishd.*
+
+# Ignore vundles.
+.vim/bundle/*
