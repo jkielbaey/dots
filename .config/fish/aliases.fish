@@ -72,11 +72,11 @@ alias egrep='egrep --color=auto'
 
 # Quick check running state of a process
 alias psef="ps -ef | grep "
-alias top="top -o cpu"
 
 # Add aliases and function per OS.
 set OS (uname)
 if [ "$OS" = "Darwin" ]
+    alias top="top -o cpu"
     alias ps="ps -SAcr -o 'uid,pid,ppid,time,rss,command'"
 
     function lockme
@@ -85,6 +85,8 @@ if [ "$OS" = "Darwin" ]
 
     # http://osxnotes.net/spotlight.html
     alias spotlight="mdfind"
+else
+    alias top="top -c -o %CPU"
 end
 
 
