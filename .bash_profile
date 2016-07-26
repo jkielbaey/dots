@@ -1,50 +1,77 @@
 # .bash_profile
 
+# Determine OS
+# (Darwin: Mac // Linux: Linux)
+OS=`uname`
+if [ "$OS" != 'Darwin' -a "$OS" != 'Linux' ]; then
+	echo "Note: script used on unknown OS type."
+fi
+
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
-# User specific environment and startup programs
+export VISUAL=vim
+export EDITOR=vim
 
+# User specific environment and startup programs
 export PATH=$PATH:$HOME/bin
 
+# Add go lang to PATH and set GOPATH.
+if [ -f /usr/local/go ]; then
+	export PATH=$PATH:/usr/local/go/bin
+	export GOPATH=$HOME/go
+	[ ! -d $GOPATH ] && mkdir $GOPATH
+fi
+
+# Enable bash completion on MAC.
+if [ "$OS" == 'Darwin' ]; then
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		source $(brew --prefix)/etc/bash_completion
+	fi
+fi
+
 # GIT STUFF
-
 # git command autocompletion script
-source /etc/bash_completion.d/git
+if [ -f /etc/bash_completion.d/git ]; then
+	source /etc/bash_completion.d/git
+fi
 
-# git commamands simplified
+# git commands simplified
 alias gst='git status'
-alias gco='git checkout'
-alias gci='git commit'
+alias gc='git commit'
+alias gcm='git commit -m'
 alias gpl='git pull'
-alias gpu='git push'
+alias gp='git push'
 alias gad='git add .'
-alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
 alias gcm='git checkout master'
-alias gmg='git merge --no-commit --log'
+alias gm='git merge --no-commit --log'
+alias gcob="git checkout -b"
+alias gco="git checkout"
+alias gl="git log"
+alias glp="git log --pretty=format:'%h - %an, %ar : %s'"
+
+# turn on coloring on grep
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # ls alias for color-mode
-alias ls='ls -lha --color=always'
+if [ "$OS" == 'Darwin' ]; then
+	alias ls='ls -lhaG'
+elif [ "$OS" == 'Linux' ]; then
+	alias ls='ls -lha --color=always'
+fi
+alias l='ls -CF'
+alias la='ls -la'
+alias ll='ls -hlF'
 
 # up 'n' folders
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-
-# Show clean/dirty state for Git in prompt
-export GIT_PS1_SHOWDIRTYSTATE=1
-
-# Change prompt
-if [ "`id -u`" != "0" ]; then
-    PS1_OLD=${PS1}
-    export PS1='\[\033[1;33m\]\h\[\033[0m\] \[\033[1;36m\]\u\[\033[0m\]:\[\033[1;36m\]\w\[\033[0m\] \[\033[1;92m\]$(__git_ps1 "(%s)")\[\033[0m\]$ '
-fi
-
-# Ensure all rubies and gemsets are stored in the homedir of the user.
-#rvm user all
 
 # Configure SSH agent.
 SSH_ENVDIR="$HOME/.ssh"
@@ -72,7 +99,55 @@ if [ -d "${SSH_ENVDIR}" ]; then
 fi
 
 # Enable git1.9 by default
-source scl_source enable git19
+if [ -d /opt/rh/git19 ]; then
+	source scl_source enable git19
+fi
 
 # Enable ruby 1.9.3 by default
-source scl_source enable ruby193
+if [ -d /opt/rh/ruby193 ]; then
+	source scl_source enable ruby193
+fi
+
+# Enable python 2.7 by default
+if [ -d /opt/rh/python27 ]; then
+	source scl_source enable python27
+fi
+
+export PYTHON_VERSION=`python --version 2>&1`
+
+if [ "$OS" == 'Darwin' ]; then
+	if echo $PYTHON_VERSION | grep -q 2.7; then
+		export PYTHONPATH='/Library/Python/2.7/site-packages'
+	fi
+elif [ "$OS" == 'Linux' ]; then
+	if [ -d /usr/lib/python2.6/site-packages ]; then
+		export PYTHONPATH=/usr/lib/python2.6/site-packages
+	fi
+	if echo $PYTHON_VERSION | grep -q 2.7; then
+		# Assuming python 2.7 installed via SCL
+		export PYTHONPATH=/opt/rh/python27/root/usr/lib/python2.7/site-packages
+	fi
+	if echo $PYTHON_VERSION | grep -q 3.3; then
+		# Assuming python 2.7 installed via SCL
+		export PYTHONPATH=/opt/rh/python33/root/usr/lib/python3.3/site-packages
+	fi
+fi
+
+# Powerline
+if [ -f /usr/bin/powerline-daemon ]; then
+	/usr/bin/powerline-daemon -q
+elif [ -f /usr/bin/powerline-daemon ]; then
+	/usr/local/bin/powerline-daemon -q
+fi
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+source $PYTHONPATH/powerline/bindings/bash/powerline.sh
+
+#source /usr/lib/python2.6/site-packages/powerline/bindings/bash/powerline.sh
+
+alias history="history | nl | less +G"
+
+alias weather="curl -4 wttr.in/Geraardsbergen"
+alias moon="curl -4 wttr.in/Moon"
+
+alias https='http --default-scheme=https'
