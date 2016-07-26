@@ -8,3 +8,5 @@
 
 # Ignore vundles.
 .vim/bundle/*
+
+.vim/.netrwhist

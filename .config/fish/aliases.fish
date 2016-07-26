@@ -34,6 +34,7 @@ function ga --description "Add files to git index"
     git add $argv
 end
 alias grm="git rm"
+alias gc="git commit"
 alias gcm="git commit -m"
 alias gcr!='git commit -v --amend --no-edit'
 alias gbd="git branch -d"
@@ -85,8 +86,6 @@ if [ "$OS" = "Darwin" ]
 
     # http://osxnotes.net/spotlight.html
     alias spotlight="mdfind"
-else
-    alias top="top -c -o %CPU"
 end
 
 

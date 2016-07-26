@@ -1,0 +1,20 @@
+{
+	"segment_data": {
+		"vcs.branch": {
+			"args": {
+				"status_colors": true
+			}
+		},
+		"hostname": {
+			"args": {
+				"only_if_ssh": true,
+                                "exclude_domain": true
+			}
+		},
+		"cwd": {
+			"args": {
+				"dir_limit_depth": 3
+			}
+		}
+	}
+}
