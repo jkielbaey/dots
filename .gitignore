@@ -6,7 +6,15 @@
 # Ignore fishd auto generated config file.
 **/fishd.*
 
+# Ignore vim swp files.
+**/*.swp
+
 # Ignore vundles.
 .vim/bundle/*
 
 .vim/.netrwhist
+
+.config/nvim/autoload
+.config/nvim/plugged
+
+powerline
