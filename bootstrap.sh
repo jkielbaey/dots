@@ -29,11 +29,13 @@ if [ "$OS" == "Darwin" ]; then
     brew update
     brew install cmake python python3 ruby perl git fish httpie
     brew install the_silver_searcher wget htop nmap ipcalc pidof
-    brew install tree
+    brew install tree wakeonlan
     brew tap neovim/neovim
     brew install neovim
     brew tap caskroom/versions
-    brew cask install java iterm2 atom
+    brew tap caskroom/cask
+    brew cask install atom java iterm2 virtualbox virtualbox-extension-pack
+    brew cask install vagrant appcleaner
     [ $do_upgrade -eq 1 ] && brew upgrade
     brew cleanup
     brew cask cleanup
