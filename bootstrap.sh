@@ -33,9 +33,10 @@ if [ "$OS" == "Darwin" ]; then
     brew tap neovim/neovim
     brew install neovim
     brew tap caskroom/versions
-    brew cask install java iterm2
+    brew cask install java iterm2 atom
     [ $do_upgrade -eq 1 ] && brew upgrade
     brew cleanup
+    brew cask cleanup
     echo ""
 
     if ! grep -q '/usr/local/bin/fish' /etc/shells; then
