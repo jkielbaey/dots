@@ -1,11 +1,8 @@
 {
-	"common": {
-		"term_truecolor": false
-	},
 	"ext": {
 		"shell": {
 			"colorscheme": "default",
-			"theme": "default_johan",
+			"theme": "aws",
 			"local_themes": {
 				"continuation": "continuation",
 				"select": "select"
