@@ -52,6 +52,11 @@ if [ "$OS" == "Darwin" ]; then
     pip install --upgrade neovim pip-tools psutil bottle glances
     echo ""
 
+    echo "# Installing/upgrading nodejs packages..."
+    npm install -g serverless
+    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless
+    echo ""
+
     echo "# Install powerline fonts..."
     if [ -d $BASEDIR/powerline ]; then
         cd $BASEDIR/powerline
