@@ -12,9 +12,11 @@
 # Ignore vundles.
 .vim/bundle/*
 
+.config/nvim/.netrwhist
 .vim/.netrwhist
 
 .config/nvim/autoload
 .config/nvim/plugged
 
 powerline
+!.config/powerline
