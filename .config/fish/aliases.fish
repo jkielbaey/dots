@@ -48,6 +48,12 @@ function gsd
   git stash drop stash@\{$argv[1]\}
 end
 
+function assh
+  set ipaddr (getip $argv[1] $argv[2])
+  echo "Connection to $ipaddr ..."
+  ssh -A -l ec2-user (getip $argv[1] $argv[2])
+end
+
 # turn on coloring on grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -68,9 +74,9 @@ alias vim="nvim"
 # DPP AWS
 alias lsec2="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],Tags[?Key==`Squad`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
 alias lsec2s="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,SubnetId,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
-alias lsami="aws ec2 describe-images --query 'Images[*].[Tags[?Key==`Name`].Value|[0],Name,ImageId,State,CreationDate]' --filters Name=image-type,Values=machine Name=is-public,Values=false --output table"
+alias lsami="aws ec2 describe-images --query 'Images[*].[Tags[?Key==`Name`].Value|[0],Name,ImageId,State,CreationDate,OwnerId]' --filters Name=image-type,Values=machine Name=is-public,Values=false --output table"
 alias lss3="aws s3api list-buckets --query 'Buckets[*].[Name]' --output table"
-alias lsefs="aws efs describe-file-systems --query 'FileSystems[*].[Name,FileSystemId]'"
+alias lsefs="aws efs describe-file-systems --query 'FileSystems[*].[Name,FileSystemId,SizeInBytes.Value]' --output table"
 alias assh='ssh -i $HOME/git/aura/ansible/temp/persgroep_key_id_rsa -l ec2-user'
 alias lsvpcs='aws ec2 describe-vpcs --query "Vpcs[*].{Name:Tags[?Key==`Name`].Value|[0],Squad:Tags[?Key==`Squad`].Value|[0],ID:VpcId,CIDR:CidrBlock,DHCP:DhcpOptionsId,State:State}" --filter "Name=isDefault,Values=false"'
 
