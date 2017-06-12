@@ -79,6 +79,9 @@ alias lss3="aws s3api list-buckets --query 'Buckets[*].[Name]' --output table"
 alias lsefs="aws efs describe-file-systems --query 'FileSystems[*].[Name,FileSystemId,SizeInBytes.Value]' --output table"
 alias assh='ssh -i $HOME/git/aura/ansible/temp/persgroep_key_id_rsa -l ec2-user'
 alias lsvpcs='aws ec2 describe-vpcs --query "Vpcs[*].{Name:Tags[?Key==`Name`].Value|[0],Squad:Tags[?Key==`Squad`].Value|[0],ID:VpcId,CIDR:CidrBlock,DHCP:DhcpOptionsId,State:State}" --filter "Name=isDefault,Values=false"'
+alias lskeypairs="aws ec2 describe-key-pairs --query 'KeyPairs[*]' --output table"
+alias lscfstacks="aws cloudformation list-stacks --query 'StackSummaries[*].{Name:StackName,Creation:CreationTime,Status:StackStatus}' --output table | grep -v DELETE_COMPLETE"
+alias showstack="aws cloudformation describe-stacks --output table --stack-name"
 
 function lssecgrps --description "List AWS security groups."
     set AWS_PROFILE_OPT ""
