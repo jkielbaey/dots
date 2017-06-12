@@ -29,7 +29,7 @@ if [ "$OS" == "Darwin" ]; then
     brew update
     brew install cmake python python3 ruby perl git fish httpie
     brew install the_silver_searcher wget htop nmap ipcalc pidof
-    brew install tree wakeonlan dos2unix tcping watch jq
+    brew install tree wakeonlan dos2unix tcping watch jq node
     brew tap neovim/neovim
     brew install neovim
     brew tap caskroom/versions
@@ -54,7 +54,7 @@ if [ "$OS" == "Darwin" ]; then
 
     echo "# Installing/upgrading nodejs packages..."
     npm install -g serverless
-    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless
+    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
     echo ""
 
     echo "# Install powerline fonts..."
