@@ -41,6 +41,8 @@ if [ "$OS" == "Darwin" ]; then
     brew cask cleanup
     echo ""
 
+    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
     if ! grep -q '/usr/local/bin/fish' /etc/shells; then
         echo "# Allow use of fish as shell"
         echo '/usr/local/bin/fish' | sudo tee -a /etc/shells >/dev/null 2>&1
