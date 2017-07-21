@@ -10,6 +10,7 @@ set -x LC_ALL en_US.UTF-8
 set -x LC_CTYPE en_US.UTF-8
 
 # respect local bins
+set -x PATH "/usr/local/opt/python/libexec/bin" $PATH
 set -x PATH "./bin" $PATH
 
 # Import aliases
