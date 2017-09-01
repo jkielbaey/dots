@@ -20,7 +20,6 @@ set -x PATH "./bin" $PATH
 set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
-
 # Start SSH Agent and set relevant variables
 function start_agent
   echo "Initializing new SSH agent ..."
@@ -65,3 +64,5 @@ set -g fish_user_paths "/usr/local/bin" $fish_user_paths
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
+
+eval (python -m virtualfish)
