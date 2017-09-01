@@ -51,7 +51,7 @@ if [ "$OS" == "Darwin" ]; then
 
     echo "# Installing/upgrading python packages..."
     pip install --upgrade pip setuptools powerline-status awscli ansible
-    pip install --upgrade neovim pip-tools psutil bottle glances
+    pip install --upgrade neovim pip-tools psutil bottle glances virtualfish
     echo ""
 
     echo "# Installing/upgrading nodejs packages..."
