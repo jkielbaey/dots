@@ -5,54 +5,29 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias ls='ls -lhaG'
-alias l='ls -CF'
+alias ls="ls -lha"
+alias l="ls -CF"
 alias la="ls -la"
-alias ll='ls -hlF'
-alias lsd='ls -l | grep --color=never "^d"'
-alias lss='ls -al | grep --color=never "\->"'
+alias ll="ls -hlF"
 
 # git commands simplified
-alias gst='git status'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gpl='git pull'
-alias gp='git push'
-alias gd="git diff"
-alias gdc="git diff --cached"
-alias gad='git add .'
-alias gcm='git checkout master'
-alias gm='git merge --no-commit --log'
+alias gad="git add ."
+alias gc="git commit"
+alias gcr!="git commit -v --amend --no-edit"
+alias gcom="git checkout master"
 alias gcob="git checkout -b"
 alias gco="git checkout"
+alias gd="git diff"
+alias gdc="git diff --cached"
 alias gl="git log"
 alias glp="git log --pretty=format:'%h - %an, %ar : %s'"
-alias glr="git ls-remote"
 alias glg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-alias glg2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
-alias grm="git rm"
-alias gcr!='git commit -v --amend --no-edit'
-function ga --description "Add files to git index"
-    git add $argv
-end
+alias gm="git merge --log"
+alias gpl="git pull"
+alias gp="git push"
 alias gs="git stash"
 alias gsl="git stash list"
-function gss
-  git stash show -p stash@\{$argv[1]\}
-end
-alias gsal="git stash apply"
-function gsa
-  git stash apply stash@\{$argv[1]\}
-end
-function gsd
-  git stash drop stash@\{$argv[1]\}
-end
-
-function assh
-  set ipaddr (getip $argv[1] $argv[2])
-  echo "Connection to $ipaddr ..."
-  ssh -A -l ec2-user (getip $argv[1] $argv[2])
-end
+alias gst="git status"
 
 # turn on coloring on grep
 alias grep='grep --color=auto'
@@ -73,14 +48,23 @@ alias vim="nvim"
 
 # DPP AWS
 alias lsec2="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],Tags[?Key==`Squad`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
+
 alias lsec2s="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,SubnetId,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
+
 alias lsami="aws ec2 describe-images --query 'Images[*].[Tags[?Key==`Name`].Value|[0],Name,ImageId,State,CreationDate,OwnerId]' --filters Name=image-type,Values=machine Name=is-public,Values=false --output table"
+
 alias lss3="aws s3api list-buckets --query 'Buckets[*].[Name]' --output table"
+
 alias lsefs="aws efs describe-file-systems --query 'FileSystems[*].[Name,FileSystemId,SizeInBytes.Value]' --output table"
+
 alias assh='ssh -i $HOME/git/aura/ansible/temp/persgroep_key_id_rsa -l ec2-user'
+
 alias lsvpcs='aws ec2 describe-vpcs --query "Vpcs[*].{Name:Tags[?Key==`Name`].Value|[0],Squad:Tags[?Key==`Squad`].Value|[0],ID:VpcId,CIDR:CidrBlock,DHCP:DhcpOptionsId,State:State}" --filter "Name=isDefault,Values=false"'
+
 alias lskeypairs="aws ec2 describe-key-pairs --query 'KeyPairs[*]' --output table"
+
 alias lscfstacks="aws cloudformation list-stacks --query 'StackSummaries[*].{Name:StackName,Creation:CreationTime,Status:StackStatus}' --output table | grep -v DELETE_COMPLETE"
+
 alias showstack="aws cloudformation describe-stacks --output table --stack-name"
 
 function lssecgrps --description "List AWS security groups."
