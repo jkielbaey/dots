@@ -21,3 +21,5 @@
 
 powerline
 !.config/powerline
+
+.config/git/gitk
