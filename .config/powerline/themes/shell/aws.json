@@ -2,23 +2,26 @@
 	"segments": {
 		"left": [
 			{
-				"function": "powerline.segments.shell.mode"
-			},
-			{
-				"function": "powerline.segments.common.net.hostname",
+				"function": "powerline.segments.common.sys.system_load",
+				"args": {
+					"short": "True"
+				},
 				"priority": 10
-			},
-			{
-				"function": "powerline.segments.common.env.user",
-				"priority": 30
 			},
 			{
 				"function": "powerline.segments.shell.cwd",
-				"priority": 10
+				"args": {
+					"dir_shorten_len": 2
+				},
+				"priority": 20
+			},
+			{
+				"function": "powerline.segments.common.env.virtualenv",
+				"priority": 30
 			},
 			{
 				"function": "powerline.segments.shell.jobnum",
-				"priority": 20
+				"priority": 40
 			}
 		],
 		"right": [
@@ -41,6 +44,10 @@
 			{
 				"function": "powerline.segments.common.vcs.stash",
 				"priority": 50
+			},
+			{
+				"function": "powerline.segments.common.net.external_ip",
+				"priority": 60
 			}
 		]
 	}
