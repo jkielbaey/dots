@@ -18,6 +18,8 @@
 .config/nvim/autoload
 .config/nvim/plugged
 .config/configstore/update-notifier-npm.json
+.config/.mono/
+.config/configstore/
 
 powerline
 !.config/powerline
