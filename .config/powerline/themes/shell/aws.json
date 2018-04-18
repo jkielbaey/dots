@@ -2,13 +2,6 @@
 	"segments": {
 		"left": [
 			{
-				"function": "powerline.segments.common.sys.system_load",
-				"args": {
-					"short": "True"
-				},
-				"priority": 10
-			},
-			{
 				"function": "powerline.segments.shell.cwd",
 				"args": {
 					"dir_shorten_len": 2
@@ -44,10 +37,6 @@
 			{
 				"function": "powerline.segments.common.vcs.stash",
 				"priority": 50
-			},
-			{
-				"function": "powerline.segments.common.net.external_ip",
-				"priority": 60
 			}
 		]
 	}

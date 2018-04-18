@@ -11,13 +11,13 @@ set -x LC_CTYPE en_US.UTF-8
 
 # respect local bins
 set -x PATH "/usr/local/opt/python/libexec/bin" $PATH
-set -x PATH "./bin" $PATH
+set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
 
 # Import aliases
 . $fish_path/aliases.fish
 
 # Enable powerline
-set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packages/powerline/bindings/fish"
+set fish_function_path $fish_function_path "/usr/local/lib/python3.6/site-packages/powerline/bindings/fish"
 powerline-setup
 
 # Start SSH Agent and set relevant variables
@@ -66,3 +66,7 @@ set -g fish_user_paths "/usr/local/bin" $fish_user_paths
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
 
 eval (python -m virtualfish)
+
+set -x AWS_PROFILE onelogin
+set -x AWS_DEFAULT_REGION eu-west-1
+alias onelogin='onelogin-aws-login --profile onelogin -u johan.kielbaey@persgroep.net'

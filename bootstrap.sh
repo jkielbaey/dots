@@ -29,7 +29,7 @@ if [ "$OS" == "Darwin" ]; then
     brew update
     brew install cmake python python3 ruby perl git fish httpie
     brew install the_silver_searcher wget htop nmap ipcalc pidof
-    brew install tree wakeonlan dos2unix tcping watch jq node
+    brew install tree wakeonlan dos2unix tcping watch jq node ripgrep
     brew tap neovim/neovim
     brew install neovim
     brew tap caskroom/versions

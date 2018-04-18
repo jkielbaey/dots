@@ -37,41 +37,19 @@ alias egrep='egrep --color=auto'
 alias history="history | nl | less +G"
 
 alias weather="curl -4 wttr.in/Geraardsbergen"
-alias moon="curl -4 wttr.in/Moon"
 alias https='http --default-scheme=https'
 
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+alias resetdns='sudo killall -HUP mDNSResponder'
 
 alias vi="nvim"
 alias vim="nvim"
 
 # DPP AWS
 alias lsec2="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],Tags[?Key==`Squad`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
-
-alias lsec2s="aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value|[0],InstanceId,State.Name,InstanceType,PrivateIpAddress,PublicIpAddress,SubnetId,Placement.AvailabilityZone,ImageId,LaunchTime]' --filters Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped --output table"
-
-alias lsami="aws ec2 describe-images --query 'Images[*].[Tags[?Key==`Name`].Value|[0],Name,ImageId,State,CreationDate,OwnerId]' --filters Name=image-type,Values=machine Name=is-public,Values=false --output table"
-
 alias lss3="aws s3api list-buckets --query 'Buckets[*].[Name]' --output table"
-
 alias lsefs="aws efs describe-file-systems --query 'FileSystems[*].[Name,FileSystemId,SizeInBytes.Value]' --output table"
-
-alias assh='ssh -i $HOME/git/aura/ansible/temp/persgroep_key_id_rsa -l ec2-user'
-
 alias lsvpcs='aws ec2 describe-vpcs --query "Vpcs[*].{Name:Tags[?Key==`Name`].Value|[0],Squad:Tags[?Key==`Squad`].Value|[0],ID:VpcId,CIDR:CidrBlock,DHCP:DhcpOptionsId,State:State}" --filter "Name=isDefault,Values=false"'
-
 alias lskeypairs="aws ec2 describe-key-pairs --query 'KeyPairs[*]' --output table"
-
-alias lscfstacks="aws cloudformation list-stacks --query 'StackSummaries[*].{Name:StackName,Creation:CreationTime,Status:StackStatus}' --output table | grep -v DELETE_COMPLETE"
-
-alias showstack="aws cloudformation describe-stacks --output table --stack-name"
-
-function lssecgrps --description "List AWS security groups."
-    set AWS_PROFILE_OPT ""
-    if [ "x$argv[1]" != "x" ]
-        set AWS_PROFILE_OPT "--profile $argv[1]"
-    end
-    echo aws ec2 $AWS_PROFILE_OPT describe-security-groups --output text --query "SecurityGroups[].GroupId"
-    aws ec2 --profile saw describe-security-groups --output text --query 'SecurityGroups[].GroupId'
-end
