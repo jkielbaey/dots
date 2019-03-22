@@ -25,3 +25,4 @@ powerline
 !.config/powerline
 
 .config/git/gitk
+.config/fish/fish_variables
