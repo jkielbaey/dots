@@ -30,7 +30,7 @@ complete --command aws --no-files --arguments '(begin; set --local --export COMP
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
 
 function fish_prompt
-    /Users/jkielbaey/go_workspace/bin/powerline-go -error $status -shell bare -cwd-max-depth 3 -modules time,venv,aws,terraform-workspace,cwd,gitlite -path-aliases \~/git/anb=+GA
+    powerline-go -error $status -shell bare -cwd-max-depth 3 -modules time,venv,aws,terraform-workspace,cwd,gitlite -path-aliases \~/git/anb=+GA
 end
 
 
