@@ -17,26 +17,39 @@ function tf
 end
 
 
-function tfplan --description "tfplan <workspace> <additional arguments>"
-    set workspace $argv[1]
-    set --erase argv[1]
+function tfplan --description "tfplan <workspace>"
+    if test (count $argv) -ne 0
+        set workspace $argv[1]
+        set curworkspace (terraform workspace show)
+        if test "$workspace" != "$curworkspace"
+            echo "terraform workspace select $workspace..."
+            aws-vault exec $TF_AWS_PROFILE -- terraform workspace select $workspace
+        end
+    else
+        set workspace (terraform workspace show)
+    end
 
     set global_config_file ../config/global.tfvars
 
-    echo "terraform workspace select $workspace..."
-    aws-vault exec $TF_AWS_PROFILE -- terraform workspace select $workspace
-
-    echo "terraform plan $argv..."
     if test -f $global_config_file
-        aws-vault exec $TF_AWS_PROFILE -- terraform plan -input=false -var-file $global_config_file -var-file ../config/$workspace.tfvars -out $workspace.tfplan $argv
+        echo "terraform plan -input=false -var-file $global_config_file -var-file ../config/$workspace.tfvars -out $workspace.tfplan"
+        aws-vault exec $TF_AWS_PROFILE -- terraform plan -input=false -var-file $global_config_file -var-file ../config/$workspace.tfvars -out $workspace.tfplan
     else
-        aws-vault exec $TF_AWS_PROFILE -- terraform plan -input=false -var-file ../config/$workspace.tfvars -out $workspace.tfplan $argv
+        echo "terraform plan -input=false -var-file ../config/$workspace.tfvars -out $workspace.tfplan"
+        aws-vault exec $TF_AWS_PROFILE -- terraform plan -input=false -var-file ../config/$workspace.tfvars -out $workspace.tfplan
     end
 end
 
 function tfapply --description "tfapply <workspace>"
-    set workspace $argv[1]
+    if test (count $argv) -ne 0
+        set workspace $argv[1]
+        echo "terraform workspace select $workspace..."
+        aws-vault exec $TF_AWS_PROFILE -- terraform workspace select $workspace
+    else
+        set workspace (terraform workspace show)
+    end
 
     echo "terraform apply $workspace.tfplan..."
     aws-vault exec $TF_AWS_PROFILE -- terraform apply $workspace.tfplan
 end
+
