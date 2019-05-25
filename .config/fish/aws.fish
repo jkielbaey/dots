@@ -1,5 +1,12 @@
+# All AWS related aliases, functions, etc...
+
 set -x AWS_ASSUME_ROLE_TTL 1h
 set -x AWS_SESSION_TTL 1h
+set -x AWS_DEFAULT_REGION eu-west-1
+set -x TF_AWS_PROFILE anb_devops
+
+# Enable auto-completion aws cli.
+complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 function aws
   aws-vault exec $AWS_PROFILE -- /usr/local/bin/aws $argv
@@ -8,8 +15,6 @@ end
 function sam
   aws-vault exec $AWS_PROFILE -- /usr/local/bin/sam $argv
 end
-
-set -x TF_AWS_PROFILE anb_devops
 
 function tf
     if echo $argv | grep -q "workspace show"
