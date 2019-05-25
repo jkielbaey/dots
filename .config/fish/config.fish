@@ -9,7 +9,6 @@ set -g -x PAGER less
 set -x LC_ALL en_US.UTF-8
 set -x LC_CTYPE en_US.UTF-8
 
-set -x AWS_DEFAULT_REGION eu-west-1
 set -x GOPATH $HOME/go_workspace
 
 # respect local bins
@@ -18,9 +17,6 @@ set -g fish_user_paths "/usr/local/bin" "/usr/local/sbin" $fish_user_paths
 
 # Import aliases
 . $fish_path/aliases.fish
-
-# Enable auto-completion aws cli.
-complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -75,4 +71,4 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/sqlite/lib/pkgconfig"
 . $fish_path/ssh-agent.fish
 
 # Add aws-vault aliases and functions
-. $fish_path/aws-vault.fish
+. $fish_path/aws.fish

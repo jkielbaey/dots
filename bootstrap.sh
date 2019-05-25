@@ -27,15 +27,31 @@ if [ "$OS" == "Darwin" ]; then
 
     echo "# Updating brew and pouring some packages..."
     brew update
-    brew install cmake python python3 ruby perl git fish httpie
-    brew install the_silver_searcher wget htop nmap ipcalc pidof
-    brew install tree wakeonlan dos2unix tcping watch jq node ripgrep
+
+    # Tools 
     brew tap neovim/neovim
-    brew install neovim
     brew tap caskroom/versions
     brew tap caskroom/cask
-    brew cask install atom java iterm2 virtualbox virtualbox-extension-pack
-    brew cask install vagrant appcleaner
+    brew install dos2unix fish git git-flow glances gnu-tar jq neovim nmap ripgrep the_silver_searcher
+    brew cask install alfred appcleaner boostnote firefx google-chrome java iterm2 spectacle
+
+    # System tools
+    brew install arping curl htop httpie ipcalc tcping tcptraceroute trash tree watch wget
+    brew cask install docker postman
+
+    # Go
+    brew install go dep
+
+    # Node
+    brew install node
+
+    # Python
+    brew install pyenv pipenv python3
+
+    # AWS
+    brew install aws-sam-cli awscli cookiecutter packer terraform terraform-docs tflint 
+    brew cask install aws-vault
+
     [ $do_upgrade -eq 1 ] && brew upgrade
     brew cleanup
     brew cask cleanup
@@ -50,33 +66,32 @@ if [ "$OS" == "Darwin" ]; then
     fi
 
     echo "# Installing/upgrading python packages..."
-    pip install --upgrade pip setuptools powerline-status awscli ansible
-    pip install --upgrade neovim pip-tools psutil bottle glances virtualfish
+    pip install --upgrade pip setuptools pip-tools psutil
     echo ""
 
-    echo "# Installing/upgrading nodejs packages..."
-    npm install -g serverless
-    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
-    echo ""
+    # echo "# Installing/upgrading nodejs packages..."
+    # npm install -g serverless
+    # [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
+    # echo ""
 
-    echo "# Install powerline fonts..."
-    if [ -d $BASEDIR/powerline ]; then
-        cd $BASEDIR/powerline
-        git pull
-        cd $OLDPWD
-    else
-        git clone https://github.com/powerline/fonts.git $BASEDIR/powerline
-    fi
-    sh $BASEDIR/powerline/install.sh
-    echo ""
+    # echo "# Install powerline fonts..."
+    # if [ -d $BASEDIR/powerline ]; then
+    #     cd $BASEDIR/powerline
+    #     git pull
+    #     cd $OLDPWD
+    # else
+    #     git clone https://github.com/powerline/fonts.git $BASEDIR/powerline
+    # fi
+    # sh $BASEDIR/powerline/install.sh
+    # echo ""
 
-    echo "# Install vim-plug."
-    if [ ! -e $BASEDIR/.config/nvim/autoload/plug.vim ]; then
-        curl -fLo $BASEDIR/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    fi
+    # echo "# Install vim-plug."
+    # if [ ! -e $BASEDIR/.config/nvim/autoload/plug.vim ]; then
+    #     curl -fLo $BASEDIR/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    # fi
 
     echo "# Create .config symlink."
-    for i in .ansible.cfg .gitignore .config; do
+    for i in .gitignore .config; do
         if [ -e ~/${i} ]; then
             echo "-- $i"
             if [ -e ~/${i}_before_bootstrap ]; then
