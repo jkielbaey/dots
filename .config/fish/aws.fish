@@ -61,3 +61,30 @@ function tfapply --description "tfapply <workspace>"
     aws-vault exec $TF_AWS_PROFILE -- terraform apply $workspace.tfplan
 end
 
+function tf_plan_all --description "tf_plan_all"
+    set log ~/tf_plan_all.log
+
+    set now (date)
+    set cwd (pwd)
+    echo "== $now - $cwd ==" >> $log
+    echo "[*] Fetch list of workspaces..." | tee -a $log
+    set workspaces (tf workspace list | egrep -v '^$|default' | gsed -r -e 's/^\s+//' -e 's/\*\s+//')
+    echo "    Workspaces: $workspaces" | tee -a $log
+
+    echo "" | tee -a $log
+    echo "[*] Ensuring modules and providers are in place..." | tee -a $log
+    tf init -upgrade > $log
+    if [ $status -ne 0 ]
+        echo "    Error occured!" | tee -a $log
+        return 1
+    else
+        echo "    Modules and providers up-to-date." | tee -a $log
+    end
+
+    for w in $workspaces
+        echo "" | tee -a $log
+        echo "[*] Running plan in workspace $w..." | tee -a $log
+        tfplan $w  | tee -a $log | egrep "No changes|Plan:"
+    end
+    echo "== END ==" >> $log
+end
