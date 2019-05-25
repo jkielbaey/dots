@@ -68,7 +68,7 @@ if [ "$OS" == "Darwin" ]; then
     fi
 
     echo "# Installing/upgrading python packages..."
-    pip3 install --upgrade pip pip-tools setuptools ansible psutil bottle virtualfish
+    pip3 install --upgrade pip pip-tools setuptools psutil bottle virtualfish
     echo ""
 
     echo "# Installing/upgrading nodejs packages..."
