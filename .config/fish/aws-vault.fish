@@ -1,3 +1,6 @@
+set -x AWS_ASSUME_ROLE_TTL 1h
+set -x AWS_SESSION_TTL 1h
+
 function aws
   aws-vault exec $AWS_PROFILE -- /usr/local/bin/aws $argv
 end
