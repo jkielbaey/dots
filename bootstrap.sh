@@ -33,7 +33,7 @@ if [ "$OS" == "Darwin" ]; then
     brew tap caskroom/versions
     brew tap caskroom/cask
     brew install dos2unix fish git git-flow glances gnu-tar jq neovim nmap ripgrep the_silver_searcher
-    brew cask install alfred appcleaner boostnote firefx google-chrome java iterm2 spectacle
+    brew cask install alfred appcleaner boostnote firefox google-chrome java iterm2 spectacle
 
     # System tools
     brew install arping curl htop httpie ipcalc tcping tcptraceroute trash tree watch wget
@@ -49,15 +49,17 @@ if [ "$OS" == "Darwin" ]; then
     brew install pyenv pipenv python3
 
     # AWS
-    brew install aws-sam-cli awscli cookiecutter packer terraform terraform-docs tflint 
+    brew tap aws/tap
+    brew install aws-sam-cli awscli
     brew cask install aws-vault
+
+    # Infra-as-code
+    brew tap wata727/tflint
+    brew install ansible cookiecutter packer terraform terraform-docs tflint 
 
     [ $do_upgrade -eq 1 ] && brew upgrade
     brew cleanup
-    brew cask cleanup
     echo ""
-
-    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
     if ! grep -q '/usr/local/bin/fish' /etc/shells; then
         echo "# Allow use of fish as shell"
@@ -66,32 +68,42 @@ if [ "$OS" == "Darwin" ]; then
     fi
 
     echo "# Installing/upgrading python packages..."
-    pip install --upgrade pip setuptools pip-tools psutil
+    pip3 install --upgrade pip pip-tools setuptools ansible psutil bottle virtualfish
     echo ""
 
-    # echo "# Installing/upgrading nodejs packages..."
-    # npm install -g serverless
-    # [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
-    # echo ""
+    echo "# Installing/upgrading nodejs packages..."
+    npm install -g serverless
+    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
+    echo ""
 
-    # echo "# Install powerline fonts..."
-    # if [ -d $BASEDIR/powerline ]; then
-    #     cd $BASEDIR/powerline
-    #     git pull
-    #     cd $OLDPWD
-    # else
-    #     git clone https://github.com/powerline/fonts.git $BASEDIR/powerline
-    # fi
-    # sh $BASEDIR/powerline/install.sh
-    # echo ""
+    echo "# Installing powerline-go..."
+    if [ ! -f /usr/local/bin/powerline-go -o $do_upgrade -eq 1 ]; then
+        POWERLINE_GO_VERSION=v1.12.1
+        URL="https://github.com/justjanne/powerline-go/releases/download/${POWERLINE_GO_VERSION}/powerline-go-darwin-amd64"
+        curl -L -o /var/tmp/powerline-go $URL
+        chmod +x /var/tmp/powerline-go
+        mv /var/tmp/powerline-go /usr/local/bin
+    fi
 
-    # echo "# Install vim-plug."
-    # if [ ! -e $BASEDIR/.config/nvim/autoload/plug.vim ]; then
-    #     curl -fLo $BASEDIR/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    # fi
+    echo "# Install powerline fonts..."
+    if [ -d $BASEDIR/powerline -a $do_upgrade -eq 1 ]; then
+        cd $BASEDIR/powerline
+        git pull
+        cd $OLDPWD
+        sh $BASEDIR/powerline/install.sh
+    elif [ ! -d $BASEDIR/powerline ]; then
+        git clone https://github.com/powerline/fonts.git --depth=1 $BASEDIR/powerline
+        sh $BASEDIR/powerline/install.sh
+    fi
+    echo ""
+
+    echo "# Install vim-plug."
+    if [ ! -e $BASEDIR/.config/nvim/autoload/plug.vim ]; then
+        curl -fLo $BASEDIR/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    fi
 
     echo "# Create .config symlink."
-    for i in .gitignore .config; do
+    for i in .gitignore .config .vimrc; do
         if [ -e ~/${i} ]; then
             echo "-- $i"
             if [ -e ~/${i}_before_bootstrap ]; then
