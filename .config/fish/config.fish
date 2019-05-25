@@ -26,7 +26,11 @@ set -g fish_user_paths "/usr/local/bin" "/usr/local/sbin" $fish_user_paths
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
 
 function fish_prompt
-    powerline-go -error $status -shell bare -cwd-max-depth 3 -modules time,venv,aws,terraform-workspace,cwd,gitlite -path-aliases \~/git/anb=+GA
+    powerline-go -error $status -shell bare -modules time,cwd -path-aliases \~/git/anb=@GA,\~/Pictures/Lightroom/Rogers=@ROGERS
+end
+
+function fish_right_prompt
+    powerline-go -shell bare -modules exit -modules-right aws,terraform-workspace,git,exit
 end
 
 
@@ -91,3 +95,7 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/zlib/lib/pkgconfig" $PKG_CONFIG_PATH
 
 set -x PATH "$HOME/anaconda3/bin" $PATH
 
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish
