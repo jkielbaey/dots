@@ -32,8 +32,9 @@ if [ "$OS" == "Darwin" ]; then
     brew tap neovim/neovim
     brew tap caskroom/versions
     brew tap caskroom/cask
+    brew tap homebrew/cask-fonts
     brew install dos2unix fish git git-flow glances gnu-tar jq neovim nmap ripgrep the_silver_searcher
-    brew cask install alfred appcleaner boostnote firefox google-chrome java iterm2 spectacle
+    brew cask install alfred appcleaner boostnote firefox google-chrome java iterm2 spectacle font-fira-code
 
     # System tools
     brew install arping curl htop httpie ipcalc tcping tcptraceroute trash tree watch wget
