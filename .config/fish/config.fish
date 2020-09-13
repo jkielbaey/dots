@@ -18,15 +18,8 @@ set -g fish_user_paths "/usr/local/bin" "/usr/local/sbin" $fish_user_paths
 # Import aliases
 . $fish_path/aliases.fish
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
-
 function fish_prompt
-    powerline-go -error $status -shell bare -modules time,cwd -path-aliases \~/git/anb=@GA,\~/Pictures/Lightroom/Rogers=@ROGERS
+    powerline-go -error $status -shell bare -modules time,cwd -path-aliases \~/git/anb=@GA,\~/Dropbox/Lightroom/Wolverine=@WOLVERINE
 end
 
 function fish_right_prompt
@@ -94,8 +87,3 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/zlib/lib/pkgconfig" $PKG_CONFIG_PATH
 . $fish_path/aws.fish
 
 set -x PATH "$HOME/anaconda3/bin" $PATH
-
-
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish
