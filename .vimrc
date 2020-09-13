@@ -2,34 +2,12 @@ set nocompatible
 filetype off
 set shell=/usr/local/bin/fish
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'Powerline/powerline', { 'rtp': 'powerline/bindings/vim' }
-Plugin 'godlygeek/tabular'
-Plugin 'rodjek/vim-puppet'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-markdown'
-Plugin 'elzr/vim-json'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'klen/python-mode'
-Plugin 'vim-perl/vim-perl'
-
-call vundle#end() 
 
 set laststatus=2
 
 " Enable syntax highlighting
 syntax on
 set background=dark
-colorscheme solarized
 
 " Sets how many lines of history VIM has to remember
 set history=700
