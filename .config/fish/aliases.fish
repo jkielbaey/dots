@@ -20,11 +20,4 @@ alias weather="curl -4 wttr.in/Geraardsbergen"
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-alias vi="nvim"
-alias vim="nvim"
-
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-
-# Docker aliases
-alias docker_prune="docker system prune --volumes -f"
-
