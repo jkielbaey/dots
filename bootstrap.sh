@@ -30,38 +30,30 @@ if [ "$OS" == "Darwin" ]; then
 
     # Tools 
     brew tap neovim/neovim
-    brew tap caskroom/versions
-    brew tap caskroom/cask
+    brew tap homebrew/cask-versions
+    brew tap homebrew/cask
     brew tap homebrew/cask-fonts
-    brew install dos2unix fish git git-flow glances gnu-tar jq neovim nmap ripgrep the_silver_searcher
-    brew cask install alfred appcleaner boostnote firefox google-chrome java iterm2 spectacle font-fira-code
 
     # System tools
-    brew install arping curl htop httpie ipcalc tcping tcptraceroute trash tree watch wget
-    brew cask install docker postman
+    brew install bandwhich bat bottom dos2unix dust exa fd gnu-sed gnu-tar csvkit fish git glances graphviz \
+        grex httpie jq neovim powerline-go ripgrep trash watch wget yq yt-dlp
+    brew cask install alfred alt-tab font-fira-code font-fira-mono-nerd-font iterm2 keepingyouawake logseq \
+        maccy macdown microsoft-teams spectacle spotify visual-studio-code zoom
 
-    # Go
-    brew install go dep
-
-    # Node
-    brew install node
-
-    # Python
-    brew install pyenv pipenv python3
+    # Languages
+    brew install go \
+        node@14 node@16 yarn \
+        python3 \
+        ruby brew-gem
 
     # AWS
     brew tap aws/tap
-    brew install aws-sam-cli awscli
-    brew cask install aws-vault
-
-    # Infra-as-code
-    brew tap wata727/tflint
-    brew install ansible cookiecutter packer terraform terraform-docs tflint 
+    brew install aws-cdk aws-nuke aws-sam-cli awscli awscurl cfn-lint rain
+    brew gem install cfn-nag
 
     [ $do_upgrade -eq 1 ] && brew upgrade
-    brew cleanup
+    brew cleanup -s
     echo ""
-
     if ! grep -q '/usr/local/bin/fish' /etc/shells; then
         echo "# Allow use of fish as shell"
         echo '/usr/local/bin/fish' | sudo tee -a /etc/shells >/dev/null 2>&1
@@ -69,22 +61,8 @@ if [ "$OS" == "Darwin" ]; then
     fi
 
     echo "# Installing/upgrading python packages..."
-    pip3 install --upgrade pip pip-tools setuptools psutil bottle virtualfish
+    pip3 install --upgrade pip pip-tools virtualenv
     echo ""
-
-    echo "# Installing/upgrading nodejs packages..."
-    npm install -g serverless
-    [ $do_upgrade -eq 1 ] && npm upgrade -g serverless npm
-    echo ""
-
-    echo "# Installing powerline-go..."
-    if [ ! -f /usr/local/bin/powerline-go -o $do_upgrade -eq 1 ]; then
-        POWERLINE_GO_VERSION=v1.12.1
-        URL="https://github.com/justjanne/powerline-go/releases/download/${POWERLINE_GO_VERSION}/powerline-go-darwin-amd64"
-        curl -L -o /var/tmp/powerline-go $URL
-        chmod +x /var/tmp/powerline-go
-        mv /var/tmp/powerline-go /usr/local/bin
-    fi
 
     echo "# Install powerline fonts..."
     if [ -d $BASEDIR/powerline -a $do_upgrade -eq 1 ]; then
@@ -97,27 +75,6 @@ if [ "$OS" == "Darwin" ]; then
         sh $BASEDIR/powerline/install.sh
     fi
     echo ""
-
-    echo "# Install vim-plug."
-    if [ ! -e $BASEDIR/.config/nvim/autoload/plug.vim ]; then
-        curl -fLo $BASEDIR/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    fi
-
-    echo "# Create .config symlink."
-    for i in .gitignore .config .vimrc; do
-        if [ -e ~/${i} ]; then
-            echo "-- $i"
-            if [ -e ~/${i}_before_bootstrap ]; then
-                rm -r ~/${i}
-            else
-                mv ~/${i} ~/${i}_before_bootstrap
-            fi
-        fi
-        ln -s $BASEDIR/${i} ~/${i}
-    done
-
-    echo "# Install vim plugins."
-    nvim +PlugInstall +qall
 
 elif [ "$OS" == "Linux" ]; then
     echo "Bootstrapping on Linux... no longer supported."
