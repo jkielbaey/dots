@@ -19,11 +19,13 @@ if [ "$OS" == "Darwin" ]; then
     BASEDIR=`pwd`/`dirname $0`
     echo "-- Git repo cloned into $BASEDIR.\n"
 
-    if [ ! -f /usr/local/bin/brew ]; then
+    if [ ! -f /opt/homebrew/bin/brew ]; then
         echo "Brew is not installed. Let's install that first."
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     echo ""
     fi
+
+    export PATH=$PATH:/opt/homebrew/bin
 
     echo "# Updating brew and pouring some packages..."
     brew update
@@ -56,7 +58,7 @@ if [ "$OS" == "Darwin" ]; then
     echo ""
     if ! grep -q '/usr/local/bin/fish' /etc/shells; then
         echo "# Allow use of fish as shell"
-        echo '/usr/local/bin/fish' | sudo tee -a /etc/shells >/dev/null 2>&1
+        echo '/opt/homebrew/bin/fish' | sudo tee -a /etc/shells >/dev/null 2>&1
         echo ""
     fi
 

@@ -10,6 +10,7 @@ set -x LC_ALL en_US.UTF-8
 set -x LC_CTYPE en_US.UTF-8
 
 set -x GOPATH $HOME/go_workspace
+set -x GOROOT $HOME/go
 
 # respect local bins
 set -x PATH "$HOME/bin" "$GOPATH/bin" /usr/local/opt/gnu-tar/libexec/gnubin/ /usr/local/opt/python/libexec/bin $PATH
@@ -49,10 +50,10 @@ set -gx PKG_CONFIG_PATH /usr/local/opt/ncurses/lib/pkgconfig $PKG_CONFIG_PATH
 set -g fish_user_paths /usr/local/opt/gnu-tar/libexec/gnubin $fish_user_paths
 
 ## openssl
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
-set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib" $LDFLAGS
-set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include" $CPPFLAGS
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl@1.1/lib/pkgconfig" $PKG_CONFIG_PATH
+fish_add_path /opt/homebrew/opt/openssl@1.1/bin
+set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
+set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
 
 ## icu4c
 set -g fish_user_paths /usr/local/opt/icu4c/bin $fish_user_paths
@@ -77,5 +78,3 @@ set -gx PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig $PKG_CONFIG_PATH
 
 # Add aws-vault aliases and functions
 . $fish_path/aws.fish
-
-set -x PATH "$HOME/anaconda3/bin" $PATH

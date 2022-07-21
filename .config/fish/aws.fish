@@ -1,5 +1,4 @@
 # All AWS related aliases, functions, etc...
-
 set -x AWS_ASSUME_ROLE_TTL 4h
 set -x AWS_SESSION_TTL 4h
 set -x AWS_DEFAULT_REGION eu-west-1
