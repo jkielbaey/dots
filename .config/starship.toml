@@ -1,0 +1,67 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$python\
+$memory_usage\
+$aws\
+$env_var\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$shell\
+$character"""
+
+[directory]
+truncation_length = 8
+truncation_symbol = '…/'
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💦 '
+disabled = false
+
+[[battery.display]] # 'bold red' style and discharging_symbol when capacity is between 0% and 10%
+threshold = 10
+style = 'bold red'
+discharging_symbol = '💀 '
+
+[[battery.display]] # 'bold yellow' style and 💦 symbol when capacity is between 10% and 30%
+threshold = 30
+style = 'bold yellow'
+
+# when capacity is over 30%, the battery indicator will not be displayed
+
+[git_branch]
+truncation_length = 8
+truncation_symbol = '…'
+
+[memory_usage]
+disabled = false
+threshold = 60
+format = 'via $symbol[${ram_pct}]($style) '
+style = 'bold dimmed green'
+
+[character]
+success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[✗](bold red) '
+
+[time]
+disabled = false
+format = '🕙 [\[$time\]]($style) '
+time_format = '%T'
+utc_time_offset = 'local'

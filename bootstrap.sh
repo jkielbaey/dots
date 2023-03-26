@@ -37,21 +37,27 @@ if [ "$OS" == "Darwin" ]; then
     brew tap homebrew/cask-fonts
 
     # System tools
-    brew install bandwhich bat bottom dos2unix dust exa fd gnu-sed gnu-tar csvkit fish git glances graphviz \
-        grex httpie jq neovim powerline-go ripgrep trash watch wget yq yt-dlp
-    brew cask install alfred alt-tab font-fira-code font-fira-mono-nerd-font iterm2 keepingyouawake logseq \
-        maccy macdown microsoft-teams spectacle spotify visual-studio-code zoom
+    brew install \
+        atuin bandwhich bat broot bottom csvkit dos2unix dust dutree exa fd \
+        fish git glances gnu-sed gnu-tar graphviz grex httpie jq neovim procs \
+        starship trash watch wget yq
+
+    brew install \
+        alfred appcleaner alt-tab drawio firefox font-fira-code \
+        font-fira-mono-nerd-font font-inconsolata-go-nerd-font \
+        font-inconsolata-lgc-nerd-font font-inconsolata-nerd-font \
+        google-chrome iterm2 keepingyouawake logseq maccy macdown \
+        microsoft-teams notion notunes spectacle spotify visual-studio-code \
+        zoom
 
     # Languages
-    brew install go \
-        node@14 node@16 yarn \
-        python3 \
-        ruby brew-gem
+    brew install \
+        go \
+        python@3.11 pipenv
 
     # AWS
     brew tap aws/tap
-    brew install aws-cdk aws-nuke aws-sam-cli awscli awscurl cfn-lint rain
-    brew gem install cfn-nag
+    brew install aws-cdk awscli awscurl cfn-lint
 
     [ $do_upgrade -eq 1 ] && brew upgrade
     brew cleanup -s
@@ -66,17 +72,17 @@ if [ "$OS" == "Darwin" ]; then
     pip3 install --upgrade pip pip-tools virtualenv
     echo ""
 
-    echo "# Install powerline fonts..."
-    if [ -d $BASEDIR/powerline -a $do_upgrade -eq 1 ]; then
-        cd $BASEDIR/powerline
-        git pull
-        cd $OLDPWD
-        sh $BASEDIR/powerline/install.sh
-    elif [ ! -d $BASEDIR/powerline ]; then
-        git clone https://github.com/powerline/fonts.git --depth=1 $BASEDIR/powerline
-        sh $BASEDIR/powerline/install.sh
-    fi
-    echo ""
+    # echo "# Install powerline fonts..."
+    # if [ -d $BASEDIR/powerline -a $do_upgrade -eq 1 ]; then
+    #     cd $BASEDIR/powerline
+    #     git pull
+    #     cd $OLDPWD
+    #     sh $BASEDIR/powerline/install.sh
+    # elif [ ! -d $BASEDIR/powerline ]; then
+    #     git clone https://github.com/powerline/fonts.git --depth=1 $BASEDIR/powerline
+    #     sh $BASEDIR/powerline/install.sh
+    # fi
+    # echo ""
 
 elif [ "$OS" == "Linux" ]; then
     echo "Bootstrapping on Linux... no longer supported."

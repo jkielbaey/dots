@@ -8,30 +8,30 @@ set nocompatible
 filetype off
 set shell=/bin/bash
 
-call plug#begin('~/.config/nvim/plugged')
-
-Plug 'sjl/badwolf'
-Plug 'fatih/molokai'
-Plug 'bling/vim-airline'
-Plug 'chase/vim-ansible-yaml'
-Plug 'klen/python-mode'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'godlygeek/tabular'
-Plug 'dag/vim-fish'
-Plug 'rking/ag.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'junegunn/goyo.vim'
-Plug 'elzr/vim-json'
-Plug 'ekalinin/Dockerfile.vim'
-"Plug 'Powerline/powerline', { 'rtp': 'powerline/bindings/vim' }
-
-call plug#end()
+" call plug#begin('~/.config/nvim/plugged')
+" 
+" Plug 'sjl/badwolf'
+" Plug 'fatih/molokai'
+" Plug 'bling/vim-airline'
+" Plug 'chase/vim-ansible-yaml'
+" Plug 'klen/python-mode'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'tpope/vim-fugitive'
+" Plug 'godlygeek/tabular'
+" Plug 'dag/vim-fish'
+" Plug 'rking/ag.vim'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'junegunn/goyo.vim'
+" Plug 'elzr/vim-json'
+" Plug 'ekalinin/Dockerfile.vim'
+" Plug 'Powerline/powerline', { 'rtp': 'powerline/bindings/vim' }
+"
+" call plug#end()
 
 set laststatus=2
 
 " Enable syntax highlighting
-colorscheme molokai
+" colorscheme molokai
 highlight LineNr guifg=#b3b3b3<Paste>
 
 " Sets how many lines of history VIM has to remember
